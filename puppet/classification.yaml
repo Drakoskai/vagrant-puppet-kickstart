@@ -1,0 +1,10 @@
+---
+groups:
+  default:
+    classes:
+      java:
+nodes:
+  'base':
+    groups:
+      - default
+    classes: {}
