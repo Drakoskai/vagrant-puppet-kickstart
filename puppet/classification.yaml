@@ -1,10 +1,12 @@
 ---
 groups:
   default:
+    parameters:
+      environment: dev
     classes:
-      java:
+      oraclejdk8:
 nodes:
-  'base':
+  'base-[0-9]{1,3}':
     groups:
       - default
     classes: {}

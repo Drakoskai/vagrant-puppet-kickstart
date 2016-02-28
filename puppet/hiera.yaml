@@ -1,0 +1,12 @@
+---
+:logger: puppet
+:merge_behavior: deeper
+:backends:
+  - yaml
+:hierarchy:
+  - "environment/%{::environment}"
+  - "common/modules/%{module_name}"
+  - "os/%{::operatingsystem}"
+  - "defaults"
+:yaml:
+  :datadir: /etc/puppet/hieradata

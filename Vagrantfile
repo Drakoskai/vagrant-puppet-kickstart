@@ -37,23 +37,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       if settings['bootstrap']
         case settings['bootstrap']['type']
         when 'script'
-          config.vm.provision :shell, :path => settings['bootstrap']['script']
+          s.vm.provision :shell, :path => settings['bootstrap']['script']
         end
       end
       ##### Provider Virtual Box
-      s.vm.provider :virtualbox do |v, override|  
-        config.vm.provision :shell, :inline => 'cp -a /tmp/puppet /etc'
+      s.vm.provider :virtualbox do |v|  
         v.gui   = settings['gui'] || false
         v.name  = settings['hostname']
-        (settings['spec'] || {}).each_pair do |key,value|
+        ( settings['spec'] || {} ).each_pair do |key,value|
           v.customize [ "modifyvm", :id, "--#{key}", value ]
         end
         ( settings['networks'] || [] ).each do |n|
-          config.vm.network n['name'], type: :dhcp if n['type'] == 'dhcp'
-          config.vm.network n['name'], ip: n['ip'] if n['ip']
+          s.vm.network n['name'], type: :dhcp if n['type'] == 'dhcp'
+          s.vm.network n['name'], ip: n['ip'] if n['ip']
         end
       end
       #### End Provider Virtual Box
+      #### Puppet
+      s.vm.provision :shell, :inline => 'puppet apply --debug --verbose /etc/puppet/manifests/default.pp'
+      ####End Puppet
     end
   end
 end

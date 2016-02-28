@@ -3,7 +3,7 @@ boxes:
   -
     box_name: trusty64
     box_url: https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
-    hostname: trusty64
+    hostname: base-001
     networks:
       - name: private_network
         ip: 10.99.250.10

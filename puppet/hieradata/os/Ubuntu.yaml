@@ -1,0 +1,9 @@
+---
+sysconfig::directory: /etc/default
+#java::distribution: 'oracle-j2sdk'
+#apt::ppas:
+#  'ppa:webupd8team/java'
+#    after: 'Class["apt::update"]-> Package <| provider == "apt" |>'
+#java::packages: 
+#  'oracle-java8-installer'
+#    require: 'Apt::Ppa["ppa:webupd8team/java"]'
