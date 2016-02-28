@@ -15,17 +15,17 @@ def vagrant_boxes &block
 end
 
 def load_default_box_config
-  YAML.load(File.read(VAGRANT_CONFIG)) || []
+  YAML.load(File.read( VAGRANT_DEFAULT_CONFIG )) || []
 end
 
 def load_box_config
-  YAML.load(File.read(VAGRANT_DEFAULT_CONFIG)) || []
+  YAML.load(File.read( VAGRANT_CONFIG )) || []
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder 'puppet/', '/tmp/puppet', disabled: false
   vagrant_boxes do |settings|
-    # Prevent "default: stdin: is not a tty" error
+      # Prevent "default: stdin: is not a tty" error
       config.vm.provision "fix-no-tty", type: "shell" do |s|
       s.privileged = false
       s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
